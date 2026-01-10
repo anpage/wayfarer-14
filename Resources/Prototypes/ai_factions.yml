@@ -265,7 +265,7 @@
   - Xeno # rivalry
 
   # cause they are hostile to them
-  - SimpleHostile 
+  - SimpleHostile
   - AllHostile
   - WizFedFaction # Frontier
   - BloodCultNF # Frontier
@@ -279,3 +279,38 @@
   - AberrantFleshExpeditionNF # Frontier
   - ContrabandClothing # Frontier
   - ContrabandDetection # Frontier
+
+# Wayfarer 14 start
+# Smargs will bite anything
+- type: npcFaction
+  id: Smarg
+  hostile:
+  - NanoTrasen
+  - Syndicate
+  - SimpleHostile
+  - SimpleNeutral
+  - Passive
+  - PetsNT
+  - Mouse
+  - Xeno
+  - Zombie
+  - Revolutionary
+  - Dragon
+  - AllHostile
+  - Wizard
+  - Xenoborg
+  - WizFedFaction
+  - BloodCultNF
+  - NFSyndicate
+  - NFPirate
+  - ExplorersExpeditionNF
+  - ArtifactConstruct
+  - StreetGangNF
+  - DinosaursNF
+  - MercenariesExpeditionNF
+  - SiliconsExpeditionNF
+  - AberrantFleshExpeditionNF
+  - ContrabandClothing
+  - ContrabandDetection
+  - HostileUniversally
+# Wayfarer 14 end

@@ -1,0 +1,21 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Original space tick sprite created by EmoGarbage. Modified by Valter for Wayfarer 14",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "icon"
+        },
+        {
+            "name": "alive",
+            "directions": 4
+        },
+        {
+            "name": "dead"
+        }
+    ]
+}

@@ -1,0 +1,119 @@
+# Thrown smarg projectile - hatches into active smarg after arm time
+- type: entity
+  name: smarg
+  id: ProjectileSmarg
+  description: A squirming smarg about to become very angry.
+  categories: [HideSpawnMenu]
+  components:
+    - type: Sprite
+      drawdepth: SmallMobs
+      sprite: _WF/Mobs/Aliens/smarg.rsi
+      state: alive
+    - type: Physics
+      bodyType: Dynamic
+    - type: Fixtures
+      fixtures:
+        fix1:
+          shape: !type:PhysShapeCircle
+            radius: 0.15
+          density: 20
+          mask:
+            - SmallMobMask
+          layer:
+            - SmallMobLayer
+    - type: ThrownItem
+    - type: TimedDespawn
+      lifetime: 1
+    - type: SpawnOnDespawn
+      prototype: MobSmarg
+
+- type: entity
+  name: smarg
+  id: MobSmarg
+  parent: SimpleSpaceMobBase
+  description: A small, vicious alien creature that will attack anything nearby. It will explode shortly after release.
+  components:
+    - type: SmargAI
+      impulseInterval: 0.5
+      minSpeed: 4
+      maxSpeed: 7
+      maxChaseRadius: 15
+      retargetInterval: 1
+      attackRange: 1
+    - type: NpcFactionMember
+      factions:
+        - Smarg
+    - type: Sprite
+      drawdepth: SmallMobs
+      sprite: _WF/Mobs/Aliens/smarg.rsi
+      layers:
+        - map: ["enum.DamageStateVisualLayers.Base"]
+          state: alive
+    - type: Physics
+    - type: Fixtures
+      fixtures:
+        fix1:
+          shape: !type:PhysShapeCircle
+            radius: 0.15
+          density: 20
+          mask:
+            - SmallMobMask
+          layer:
+            - SmallMobLayer
+    - type: MobState
+      allowedStates:
+        - Alive
+        - Dead
+    - type: MobThresholds
+      thresholds:
+        0: Alive
+        10: Dead
+    - type: MovementSpeedModifier
+      baseWalkSpeed: 5
+      baseSprintSpeed: 7
+    - type: MovementAlwaysTouching
+    - type: DamageStateVisuals
+      states:
+        Alive:
+          Base: alive
+        Dead:
+          Base: dead
+    - type: CombatMode
+    - type: MeleeWeapon
+      soundHit:
+        path: /Audio/Effects/bite.ogg
+      angle: 0
+      animation: WeaponArcBite
+      damage:
+        types:
+          Piercing: 2
+    - type: TimedDespawn
+      lifetime: 20
+    - type: SpawnOnDespawn
+      prototype: EffectSmargExplosion
+    - type: AmbientSound
+      enabled: true
+      volume: -8
+      range: 5
+      sound:
+        path: /Audio/Animals/snake_hiss.ogg
+    - type: Tag
+      tags:
+        - CannotSuicide
+    - type: NonSpreaderZombie
+
+# Explosion effect spawned when smarg's timer expires
+- type: entity
+  id: EffectSmargExplosion
+  categories: [HideSpawnMenu]
+  components:
+    - type: TimedDespawn
+      lifetime: 0.1
+    - type: TriggerOnSpawn
+    - type: ExplodeOnTrigger
+    - type: Explosive
+      explosionType: Minibomb
+      totalIntensity: 8
+      intensitySlope: 3
+      maxIntensity: 2
+      canCreateVacuum: false

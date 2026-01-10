@@ -1,0 +1,29 @@
+- type: entity
+  name: Smarg Hive
+  parent: BaseItem
+  id: Smarghive
+  description: A squirming hive containing several vicious smargs. They attack EVERYTHING, including you!
+  components:
+    - type: Sprite
+      sprite: _WF/Objects/Weapons/smarg.rsi
+      state: smarghive
+    - type: Item
+      size: Small
+    - type: Gun
+      fireRate: 1
+      selectedMode: SemiAuto
+      availableModes:
+        - SemiAuto
+      projectileSpeed: 8
+      soundGunshot:
+        path: /Audio/Effects/snap.ogg
+      soundEmpty:
+        path: /Audio/Effects/snap.ogg
+    - type: ThrowingGun
+      emptyMessage: smarghive-empty
+    - type: BasicEntityAmmoProvider
+      proto: ProjectileSmarg
+      capacity: 5
+      count: 5
+    - type: StaticPrice
+      price: 500
