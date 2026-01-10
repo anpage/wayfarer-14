@@ -5,6 +5,8 @@ using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.NPC.Components;
 using Content.Shared.NPC.Systems;
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Random;
@@ -21,10 +23,14 @@ public sealed class SmargAISystem : EntitySystem
 {
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly NpcFactionSystem _faction = default!;
     [Dependency] private readonly SharedCombatModeSystem _combat = default!;
+
+    private static readonly SoundSpecifier DeathSound = new SoundPathSpecifier("/Audio/_WF/Smarg/die.ogg");
+    private static readonly SoundSpecifier HuntSound = new SoundCollectionSpecifier("SmargHunt");
 
     public override void Initialize()
     {
@@ -64,6 +70,7 @@ public sealed class SmargAISystem : EntitySystem
             // Don't process dead smargs
             if (mobState.CurrentState != MobState.Alive)
             {
+                _audio.PlayPvs(DeathSound, uid);
                 RemComp<NPCMeleeCombatComponent>(uid);
                 RemComp<TimedDespawnComponent>(uid);
                 RemComp<SmargAIComponent>(uid);
@@ -157,6 +164,9 @@ public sealed class SmargAISystem : EntitySystem
 
         // Keep in air to prevent ground friction
         _physics.SetBodyStatus(uid, physics, BodyStatus.InAir);
+
+        // Play hunt sound on each jump
+        _audio.PlayPvs(HuntSound, uid);
     }
 
     private void UpdateCombat(EntityUid uid, SmargAIComponent smarg)

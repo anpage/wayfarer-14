@@ -33,6 +33,9 @@
   parent: SimpleSpaceMobBase
   description: A small, vicious alien creature that will attack anything nearby. It will explode shortly after release.
   components:
+    - type: EmitSoundOnSpawn
+      sound:
+        path: /Audio/_WF/Smarg/deploy.ogg
     - type: SmargAI
       impulseInterval: 0.5
       minSpeed: 4

@@ -1,0 +1,6 @@
+- type: soundCollection
+  id: SmargHunt
+  files:
+    - /Audio/_WF/Smarg/hunt1.ogg
+    - /Audio/_WF/Smarg/hunt2.ogg
+    - /Audio/_WF/Smarg/hunt3.ogg
